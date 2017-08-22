@@ -14,7 +14,6 @@ function handleType(config){
 	var doc = document.querySelector(config.obj);
 	var isAttac = doc.attachEvent?true:false;
 	var isMobile = ua.indexOf('Mobile')>0?true:false;
-	console.log(isAttac)
 	var isTouch = config.eventType=="touchstart" ||  config.eventType=="touchmove" || config.eventType=="touchend" || config.eventType=="touchcancel"?true:false;
 	var handleType = isAttac?doc.attachEvent(config.eventType,function(e){
 		var touchs = isTouch?(isMobile?e.targetTouches[0]:e):e

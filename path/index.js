@@ -1,4 +1,4 @@
-import {drag,handleType,eventType} from '../drag-event-mp/index.js';
+import {drag,handleType,eventType} from 'drag-event-mp';
 
 
 drag({
