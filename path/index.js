@@ -1,16 +1,16 @@
-import {drag,handleType,eventType} from '../drag-event-mp/index';
+import {drag,handleType,eventType} from 'drag-event-mp';
 
-drag("#btn","#dec",{type:"double",clone:true,class:"ani"},function(e,mx,my,doc){
 
-});
-
-//
-//import {bodyInfo} from './body';
-//
-//
-//bodyInfo.controller("index",["$scope","myCache",function($scope,myCache){
-//	myCache.put('myValue',55);
-//	$scope.msg = "11111"
-//	$scope.value = myCache.get('myValue');
-//	console.log(	$scope.value )
-//}])
+drag({
+	obj:"#btn",
+	eobj:"#dec",
+	type:"double",
+	clone:false,
+	class:"ani",
+	moveCallback:function(){
+		console.log("111")
+	},
+	endCallback:function(){
+		console.log("222")
+	}
+})

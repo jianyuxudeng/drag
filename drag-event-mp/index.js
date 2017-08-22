@@ -1,20 +1,21 @@
 var eventType = require('./model/event').eventType;
 var handleType = require('./model/event').handleType;
+require("./model/drag.css")
 
-function drag(obj,eobj,config,moveCallback,endCallback){
+function drag(config){
 	var sx,ex,mx,move=false,left,doc,top,sy,my,newDom;
-	var sdoc = document.querySelector(obj);
+	var sdoc = document.querySelector(config.obj);
 	var sLeft = sdoc.offsetLeft;
 	var sTop = sdoc.offsetTop;
 	var sWidth = sdoc.offsetWidth;
 	var sHeight = sdoc.offsetHeight;
-	var edoc = document.querySelector(eobj);
+	var edoc = document.querySelector(config.eobj);
 	var eLeft = edoc.offsetLeft;
 	var eTop = edoc.offsetTop;
 	var eWidth = edoc.offsetWidth;
 	var eHeight = edoc.offsetHeight;
 	var parentDoc = sdoc.parentNode;
-	handleType(obj,eventType.handleStart,function(e){		
+	handleType({obj:config.obj,eventType:eventType.handleStart,callback:function(e){		
 		doc = e.target;
 		left = doc.offsetLeft;
 		top = doc.offsetTop;
@@ -32,9 +33,9 @@ function drag(obj,eobj,config,moveCallback,endCallback){
 		}else{
 			move = true;
 		}
-	},false).handleType;
+	},syType:false}).handleType;
 	
-	handleType(obj,eventType.handleMove,function(e){
+	handleType({obj:config.obj,eventType:eventType.handleMove,callback:function(e){
 		if(move){
 			mx = e.pageX-sx+left;
 			my = e.pageY-sy+top
@@ -67,13 +68,13 @@ function drag(obj,eobj,config,moveCallback,endCallback){
 			}else{
 				move = true;
 			}
-			if(moveCallback){
-				moveCallback(e,mx,my,doc)
+			if(config.moveCallback){
+				config.moveCallback(e,mx,my,doc)
 			}
 		}
-	},false).handleType
+	},syType:false}).handleType
 	
-	handleType(obj,eventType.handleLeave,function(e){
+	handleType({obj:config.obj,eventType:eventType.handleLeave,callback:function(e){
 		move = false;
 		if(config.type=="double"){
 		     if(mx+sWidth>eLeft&&mx<eLeft+eWidth&&my+sHeight>eTop&&my<eTop+eHeight){
@@ -82,13 +83,13 @@ function drag(obj,eobj,config,moveCallback,endCallback){
 		     	doc.style.top = sTop+"px";
 		     }
 		}
-		if(endCallback){
-			endCallback(e,doc);
+		if(config.endCallback){
+			config.endCallback(e,doc);
 		}
 		
-	},false).handleType
+	},syType:false}).handleType
 	
-	handleType(obj,eventType.handleUp,function(e){
+	handleType({obj:config.obj,eventType:eventType.handleUp,callback:function(e){
 		move = false;
 		if(config.type=="double"){
 		     if(mx+sWidth>eLeft&&mx<eLeft+eWidth&&my+sHeight>eTop&&my<eTop+eHeight){
@@ -97,10 +98,10 @@ function drag(obj,eobj,config,moveCallback,endCallback){
 		     	doc.style.top = sTop+"px";
 		     }
 		}
-		if(endCallback){
-			endCallback(e,doc);
+		if(config.endCallback){
+			config.endCallback(e,doc);
 		}
-	},false).handleType
+	},syType:false}).handleType
 }
 
 
