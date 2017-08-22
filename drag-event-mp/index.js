@@ -107,7 +107,7 @@ function drag(config){
 
 function backFun(newDom,left,top,parentDoc,config,doc){
 	var id = "#"+newDom.id;
-	handleType(id,"click",function(e){
+	handleType({obj:id,eventType:"click",callback:function(e){
 		var nDoc = document.querySelector(id);
 		nDoc.style.left = left+"px";
 		nDoc.style.top = top+"px";
@@ -118,7 +118,7 @@ function backFun(newDom,left,top,parentDoc,config,doc){
 		}else{
 			parentDoc.appendChild(nDoc);
 		}	
-	},false).handleType
+	},syType:false}).handleType
 }
 
 exports.eventType = eventType;
